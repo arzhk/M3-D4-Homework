@@ -2,12 +2,27 @@ body {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  background-color: #2b2b2b !important;
+  min-height: 100vh;
+  font-family: "Poppins", sans-serif !important;
+}
+
+.navbar {
+  background-color: #181818;
+  border-bottom: 3px solid rgb(0, 255, 132);
+  position: fixed;
+  z-index: 999;
 }
 
 .navbar ul {
   width: 100%;
   padding: 0px 30px 0px 0px;
   list-style-type: none;
+}
+
+.navbar li {
+  display: inline-block;
+  margin: 0px 20px;
 }
 
 .navbar .dropdown-menu {
@@ -30,4 +45,83 @@ body {
 
 .jumbotron {
   height: 30vh;
+  background-color: #00ff84;
+  background-image: linear-gradient(160deg, #00ff84 0%, #27b770 100%);
+  margin: 0 !important;
+}
+
+.container {
+  max-width: 1200px !important;
+}
+
+.btn-strive {
+  color: rgb(0, 255, 132) !important;
+  border: 1px solid rgb(0, 255, 132) !important;
+}
+
+.btn-strive:hover {
+  color: #181818 !important;
+  border: 1px solid rgb(0, 255, 132) !important;
+  background-color: rgb(0, 255, 132);
+}
+
+#book-store {
+  box-shadow: 0px -6px 20px rgba(0, 0, 0, 0.3);
+  background-color: #2b2b2b;
+  color: #fff;
+  padding: 50px;
+  min-height: 70vh;
+}
+
+.text-large {
+  font-size: 3rem;
+}
+
+.book-card {
+  background-color: transparent !important;
+  padding: 10px;
+  height: 100% !important;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  height: 580px !important;
+  border-radius: 4px !important;
+}
+
+.book-card:hover {
+  background-color: #0a0a0a4d !important;
+}
+
+.book-card img {
+  border-radius: 4px;
+  height: 390px;
+}
+
+.card-header h4 {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  transition: all 0.25s ease;
+}
+
+.card-body {
+  padding: 0px 10px !important;
+}
+
+.btn-addtocart {
+  border: none;
+  background-color: #00ff84;
+  color: #181818ab;
+  padding: 10px;
+  border-radius: 8px;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.btn-addtocart:hover {
+  background-color: #17c06e;
+  color: #181818;
+}
+
+.in-cart {
+  background-color: #00ff8450;
+  border: 1px solid #17c06e;
 }

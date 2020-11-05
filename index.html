@@ -3,8 +3,8 @@
             You have the list of the available books from the current API:
             https://striveschool-api.herokuapp.com/books
             What you have to do is:
-            0) Get all the products from the API using a fetch
-            1) Display the list of items available on the page using template literals `` and .forEach
+            0) Get all the products from the API using a fetch (DONE)
+            1) Display the list of items available on the page using template literals `` and .forEach (DONE)
             2) Add a "add to cart button"
             3) When the button is pressed, change the style of the item and add it to another list
             4) Add "skip" button next to each item
@@ -37,9 +37,19 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+      integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark">
       <a class="navbar-brand" href="#">Navbar</a>
       <button
         class="navbar-toggler"
@@ -54,14 +64,31 @@
       </button>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto d-flex justify-content-between">
+        <ul
+          class="navbar-nav mr-auto d-flex justify-content-between align-items-center"
+        >
           <div class="left-side-nav">
             <li class="nav-item active">
               <a class="nav-link" href="#"
                 >Home <span class="sr-only">(current)</span></a
               >
             </li>
+            <li>
+              <div class="d-flex align-items-center justify-content-center">
+                <input
+                  class="form-control d-inline-block mr-sm-2"
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                  w
+                />
+                <button class="btn btn-strive d-inline-block" type="swubmit">
+                  Search
+                </button>
+              </div>
+            </li>
           </div>
+
           <div class="right-side-nav">
             <li class="nav-item dropdown">
               <a
@@ -97,10 +124,13 @@
 
     <section id="book-store">
       <div class="container">
-        <h2 class="font-weight-bold">Store</h2>
-      </div>
-      <div class="row">
-        <!-- Generate content here -->
+        <h2 class="font-weight-bold text-large">Store</h2>
+        <div
+          id="books-row"
+          class="row d-flex justify-content-center align-items-center"
+        >
+          <!-- Generate content here -->
+        </div>
       </div>
     </section>
 
