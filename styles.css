@@ -34,7 +34,7 @@ body {
 }
 
 .dropdown-menu ul {
-  padding: 20px;
+  padding: 10px;
 }
 
 .dropdown-menu ul li {
@@ -148,11 +148,10 @@ body {
 
 #shopping-cart .price-info {
   background-color: transparent;
-  padding: 8px;
+  padding: 0px;
   font-weight: normal;
   border-radius: 0px;
   width: 70px;
-  text-align: center;
   font-weight: bold;
 }
 
@@ -166,7 +165,9 @@ body {
 
 #shopping-cart li {
   margin: 5px 0px;
-  padding: 0px;
+  padding: 10px;
+  background-color: #17c06e23;
+  border-radius: 8px;
 }
 
 /* ANIMATIONS */

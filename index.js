@@ -29,7 +29,7 @@ function createStoreCard(book) {
   <div class="card-body">
   <img src="${book.img}" class="w-100" />
   <div>
-    <button class="btn-addtocart my-4 d-inline-block" onclick="addToCart()"><i class="fas fa-cart-plus mr-2"></i>Add to Cart</button>
+    <button class="btn-addtocart my-4" onclick="addToCart(event)"><i class="fas fa-cart-plus mr-2"></i>Add to Cart</button>
     <h5 class="price-info text-center ml-3 d-inline-block">${book.price}</h5>
     </div>
   </div>
@@ -54,34 +54,55 @@ function updateTotalCartPrice() {
     shoppingCartPrices.push(parseFloat(e.innerText));
   });
 
-  shoppingCartPrices = shoppingCartPrices.reduce((a, e) => a + e);
-
-  console.log(shoppingCartPrices);
-
-  shoppingCartTotal.innerHTML = `Total: <p class="total-price d-inline-block">${shoppingCartPrices.toFixed(
-    2
-  )}</p>`;
+  if (shoppingCartPrices.length > 1) {
+    shoppingCartPrices = shoppingCartPrices.reduce((a, e) => a + e);
+    shoppingCartTotal.innerHTML = `Total: <p class="total-price d-inline-block">${shoppingCartPrices.toFixed(
+      2
+    )}</p>`;
+  }
 }
 
 function addToShoppingCartList(target) {
   const shoppingCartList = document.querySelector("#shopping-cart");
   const itemName = target.querySelector(".book-title").innerText;
   const itemPrice = target.querySelector(".price-info").innerText;
-  const newLi = document.createElement("li");
-  newLi.innerHTML = `<h6 class="mb-0">${itemName}</h6><p class="price-info mb-0">${itemPrice}</p>`;
 
+  const newLi = document.createElement("li");
+  newLi.classList.add("shopping-cart-li");
+  newLi.innerHTML = `<h6 class="mb-0">${itemName}</h6><p class="price-info mb-0">${itemPrice}</p>`;
   shoppingCartList.appendChild(newLi);
+
   updateTotalCartPrice();
 }
 
-function addToCart() {
+function removeFromShoppingCartList(target) {
+  const shoppingCartItems = document.querySelectorAll(".shopping-cart-li h6");
+  const shoppingCartItem_Title = target.querySelector("h4").innerText;
+  shoppingCartItems.forEach((e) => {
+    if (e.innerText === shoppingCartItem_Title) {
+      e.parentNode.remove();
+    }
+  });
+}
+
+function addToCart(event) {
   const target = event.target.parentNode.parentNode.parentNode.parentNode;
   const targetInfo = event.target.parentNode.parentNode;
-  console.log(targetInfo);
+  const addToCartButton = target.querySelector(".btn-addtocart");
+
   target.classList.toggle("in-cart");
+  if (target.classList.contains("in-cart")) {
+    addToCartButton.innerHTML = `
+      <i class="fas fa-trash mr-2"></i>Remove`;
+  } else {
+    addToCartButton.innerHTML = `
+      <i class="fas fa-cart-plus mr-2"></i>Add to Cart`;
+  }
 
   if (target.classList.contains("in-cart")) {
     addToShoppingCartList(target);
+  } else {
+    removeFromShoppingCartList(target);
   }
 }
 
