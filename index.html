@@ -7,7 +7,7 @@
             1) Display the list of items available on the page using template literals `` and .forEach (DONE)
             2) Add a "add to cart button" (DONE)
             3) When the button is pressed, change the style of the item and add it to another list (DONE)
-            4) Add "skip" button next to each item
+            4) Add "skip" button next to each item (DONE)
             5) When pressed, the button should remove from the page the item not interesting from the user
             6) Add a "search bar". When the user types more than 3 chars, you should filter the content of the page to show only the items with a matching name (hint: use .filter method)
             7) Allow the user to delete items from the cart list
@@ -50,7 +50,7 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <a class="navbar-brand" href="#">Strive Books</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -87,6 +87,16 @@
                 </button>
               </div>
             </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="#"
+                data-toggle="modal"
+                data-target="#staticBackdrop"
+                onclick="viewSkippedBooks()"
+                >Skipped Books</a
+              >
+            </li>
           </div>
 
           <div class="right-side-nav">
@@ -100,7 +110,7 @@
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                Shopping Cart
+                <i class="fas fa-shopping-cart mr-2"></i>Shopping Cart
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <ul id="shopping-cart">
@@ -139,6 +149,46 @@
         </div>
       </div>
     </section>
+
+    <div
+      class="modal fade"
+      id="staticBackdrop"
+      data-backdrop="static"
+      data-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Skipped Books</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div
+            class="modal-body d-flex justify-content-start align-items-center flex-column"
+          >
+            <!-- Generate Cards here -->
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Optional JavaScript -->
     <script src="index.js"></script>

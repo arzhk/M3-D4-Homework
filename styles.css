@@ -14,6 +14,10 @@ body {
   z-index: 999;
 }
 
+.navbar-brand {
+  color: rgb(0, 255, 132) !important;
+}
+
 .navbar ul {
   width: 100%;
   padding: 0px 30px 0px 0px;
@@ -22,7 +26,7 @@ body {
 
 .navbar li {
   display: inline-block;
-  margin: 0px 20px;
+  margin: 0px 10px;
 }
 
 .navbar .dropdown-menu {
@@ -40,6 +44,11 @@ body {
 .dropdown-menu ul li {
   padding: 20px;
   width: 100%;
+}
+
+.dropdown-menu img {
+  max-width: 60px;
+  margin-right: 20px;
 }
 
 .dropdown-menu ul h6 {
@@ -68,6 +77,26 @@ body {
   color: #181818 !important;
   border: 1px solid rgb(0, 255, 132) !important;
   background-color: rgb(0, 255, 132);
+}
+
+.btn-skip {
+  position: absolute;
+  bottom: 18%;
+  right: 30px;
+  border: 2px solid #6b292962;
+  background-color: #ca5757;
+  color: #fff;
+  outline: none;
+  transition: background-color 0.25s ease;
+  padding: 4px 8px;
+  border-radius: 6px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.6);
+  letter-spacing: 1px;
+  font-size: 0.7rem;
+}
+
+.btn-skip:hover {
+  background-color: #9c3c3c;
 }
 
 #book-store {
@@ -151,8 +180,9 @@ body {
   padding: 0px;
   font-weight: normal;
   border-radius: 0px;
-  width: 70px;
+  width: 100%;
   font-weight: bold;
+  margin-top: -20px;
 }
 
 .price-info {
@@ -168,6 +198,59 @@ body {
   padding: 10px;
   background-color: #17c06e23;
   border-radius: 8px;
+}
+
+#shopping-cart-total {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.modal-content {
+  background-color: #2b2b2b !important;
+  color: #fff;
+}
+
+.modal-content button {
+  background-color: #00ff84;
+  color: #1b1b1b;
+  outline: none;
+}
+
+.modal-content button:hover {
+  background-color: #19a361;
+  color: #1b1b1b;
+}
+
+.modal-content button:active {
+  box-shadow: none !important;
+}
+
+.modal-content .close {
+  text-shadow: none;
+  color: #00ff84;
+  outline: none;
+  transition: all 0.25s ease;
+}
+
+.modal-header {
+  color: #00ff84;
+  border-bottom: none !important;
+}
+
+.modal-footer {
+  border-top: none !important;
+}
+
+.modal-body img {
+  max-width: 100px;
+  height: auto;
+}
+
+.modal-body .card {
+  height: auto !important;
+  text-align: center;
+  margin-bottom: 20px;
+  min-width: 288px;
+  border: 1px solid #0000006b;
 }
 
 /* ANIMATIONS */
