@@ -2,6 +2,8 @@
 
 let bookDB = [];
 let skippedBooks = [];
+let selectedBooks = [];
+let isFiltered = false;
 
 /************************ */
 
@@ -13,7 +15,7 @@ async function getData() {
     bookDB.push(data);
     console.log("Data loaded");
   });
-  populateStore();
+  populateStore(bookDB);
 }
 
 function skipBook(event) {
@@ -45,13 +47,32 @@ function createStoreCard(book) {
   </div>
 </div>`;
   newBook.querySelector(".btn-skip").addEventListener("click", skipBook);
+
+  selectedBooks.forEach((e) => {
+    const newBookTitle = newBook.querySelector(".book-title").innerText;
+    const addToCartButton = newBook.querySelector(".btn-addtocart");
+    if (e === newBookTitle) {
+      newBook.classList.add("in-cart");
+      addToCartButton.innerHTML = `
+      <i class="fas fa-trash mr-2"></i>Remove`;
+    }
+  });
+
   storeBody.appendChild(newBook);
 }
 
-function populateStore() {
-  bookDB[0].forEach((e) => {
-    createStoreCard(e);
-  });
+function populateStore(array) {
+  const storeBody = document.querySelector("#books-row");
+  storeBody.innerHTML = "";
+  if (isFiltered === false) {
+    array[0].forEach((e) => {
+      createStoreCard(e);
+    });
+  } else {
+    array.forEach((e) => {
+      createStoreCard(e);
+    });
+  }
 }
 
 function updateTotalCartPrice() {
@@ -101,16 +122,22 @@ function removeFromShoppingCartList(target) {
 
 function addToCart(event) {
   const target = event.target.parentNode.parentNode.parentNode.parentNode;
-  const targetInfo = event.target.parentNode.parentNode;
   const addToCartButton = target.querySelector(".btn-addtocart");
 
   target.classList.toggle("in-cart");
+
   if (target.classList.contains("in-cart")) {
     addToCartButton.innerHTML = `
       <i class="fas fa-trash mr-2"></i>Remove`;
+    selectedBooks.push(target.querySelector(".book-title").innerText);
+    console.log(selectedBooks);
   } else {
     addToCartButton.innerHTML = `
       <i class="fas fa-cart-plus mr-2"></i>Add to Cart`;
+    const indexofTarget = selectedBooks.indexOf(
+      `${target.querySelector(".book-title").innerText}`
+    );
+    selectedBooks.splice(indexofTarget, 1);
   }
 
   if (target.classList.contains("in-cart")) {
@@ -133,8 +160,9 @@ function hideExcessElements() {
     priceInfo[i].classList.add("d-none");
     priceInfo[i].classList.remove("d-inline-block");
   }
-  return;
 }
+
+function updateSelectedItems() {}
 
 function viewSkippedBooks() {
   const modalBody = document.querySelector(".modal-body");
@@ -142,6 +170,36 @@ function viewSkippedBooks() {
     modalBody.innerHTML += e.innerHTML;
   });
   hideExcessElements();
+}
+
+function filterBooks(searchInput) {
+  const filteredBooksArray = bookDB.flat().filter((e) => {
+    if (e.title.toLowerCase().startsWith(`${searchInput}`.toLowerCase())) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+  console.log("working");
+
+  populateStore(filteredBooksArray);
+}
+
+function search(value) {
+  const filterText = document.querySelector("#filter-text");
+
+  if (value.length < 3 && isFiltered) {
+    isFiltered = false;
+    filterText.classList.add("d-none");
+    updateSelectedItems();
+    populateStore(bookDB);
+  }
+  if (value.length >= 3) {
+    isFiltered = true;
+    filterText.classList.remove("d-none");
+    filterText.innerText = `Currently filtering by... "${value}"`;
+    filterBooks(value);
+  }
 }
 
 window.onload = getData();
