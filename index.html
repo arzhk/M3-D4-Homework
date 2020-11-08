@@ -9,7 +9,7 @@
             3) When the button is pressed, change the style of the item and add it to another list (DONE)
             4) Add "skip" button next to each item (DONE)
             5) When pressed, the button should remove from the page the item not interesting from the user (DONE)
-            6) Add a "search bar". When the user types more than 3 chars, you should filter the content of the page to show only the items with a matching name (hint: use .filter method)
+            6) Add a "search bar". When the user types more than 3 chars, you should filter the content of the page to show only the items with a matching name (hint: use .filter method) (DONE)
             7) Allow the user to delete items from the cart list
             
             [EXTRA]
@@ -117,8 +117,12 @@
                   id="shopping-cart-total"
                   class="px-4 py-2 text-right font-weight-bold"
                 >
-                  <!-- Generate Here -->Total: £0.00
+                  <!-- Generate Here -->
+                  <p class="my-0 py-3">Total: £0.00</p>
                 </div>
+                <button class="btn-clear-cart" onclick="emptyCart()">
+                  Empty Cart
+                </button>
               </div>
             </li>
           </div>

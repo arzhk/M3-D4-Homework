@@ -2,6 +2,7 @@
 
 let bookDB = [];
 let skippedBooks = [];
+let skippedBookTitles = [];
 let selectedBooks = [];
 let isFiltered = false;
 
@@ -21,44 +22,54 @@ async function getData() {
 function skipBook(event) {
   const target = event.target.parentNode.parentNode.parentNode.parentNode;
   skippedBooks.push(target);
+  skippedBookTitles.push(target.querySelector(".book-title").innerText);
   target.remove();
 }
 
 function createStoreCard(book) {
   const storeBody = document.querySelector("#books-row");
-
-  const newBook = document.createElement("div");
-  newBook.style.maxWidth = "600px";
-  newBook.style.margin = "5px";
-  newBook.innerHTML = `<div class="card book-card" style="max-width: 18rem;">
-  <div class="card-header">
-  <h4 class="book-title">${book.title}</h4>
-  <p class="mb-0">${book.category}</p>
-  </div>
-  <div class="card-body">
-  <img src="${book.img}" class="w-100" />
-  <div>
-    <button class="btn-addtocart my-4" onclick="addToCart(event)"><i class="fas fa-cart-plus mr-2"></i>Add to Cart</button>
-    <h5 class="price-info text-center ml-3 d-inline-block">${book.price.toFixed(
-      2
-    )}</h5>
-    <button class="btn-skip">SKIP</button>
-    </div>
-  </div>
-</div>`;
-  newBook.querySelector(".btn-skip").addEventListener("click", skipBook);
-
-  selectedBooks.forEach((e) => {
-    const newBookTitle = newBook.querySelector(".book-title").innerText;
-    const addToCartButton = newBook.querySelector(".btn-addtocart");
-    if (e === newBookTitle) {
-      newBook.classList.add("in-cart");
-      addToCartButton.innerHTML = `
-      <i class="fas fa-trash mr-2"></i>Remove`;
+  let isSkipped = false;
+  skippedBookTitles.forEach((e) => {
+    if (e === book.title) {
+      isSkipped = true;
+      console.log(book.title + " is on the skipped list");
     }
   });
 
-  storeBody.appendChild(newBook);
+  if (!isSkipped) {
+    const newBook = document.createElement("div");
+    newBook.style.maxWidth = "600px";
+    newBook.style.margin = "5px";
+    newBook.innerHTML = `<div class="card book-card" style="max-width: 18rem;">
+    <div class="card-header">
+    <h4 class="book-title">${book.title}</h4>
+    <p class="mb-0">${book.category}</p>
+    </div>
+    <div class="card-body">
+    <img src="${book.img}" class="w-100" />
+    <div>
+      <button class="btn-addtocart my-4" onclick="addToCart(event)"><i class="fas fa-cart-plus mr-2"></i>Add to Cart</button>
+      <h5 class="price-info text-center ml-3 d-inline-block">${book.price.toFixed(
+        2
+      )}</h5>
+      <button class="btn-skip">SKIP</button>
+      </div>
+    </div>
+  </div>`;
+    newBook.querySelector(".btn-skip").addEventListener("click", skipBook);
+
+    selectedBooks.forEach((e) => {
+      const newBookTitle = newBook.querySelector(".book-title").innerText;
+      const addToCartButton = newBook.querySelector(".btn-addtocart");
+      if (e === newBookTitle) {
+        newBook.classList.add("in-cart");
+        addToCartButton.innerHTML = `
+        <i class="fas fa-trash mr-2"></i>Remove`;
+      }
+    });
+
+    storeBody.appendChild(newBook);
+  }
 }
 
 function populateStore(array) {
@@ -92,6 +103,25 @@ function updateTotalCartPrice() {
       2
     )}</p>`;
   }
+}
+
+function emptyCart() {
+  const shoppingCart = document.querySelector("#shopping-cart");
+  shoppingCart.innerHTML = "";
+
+  const shoppingCartTotal = document.querySelector("#shopping-cart-total");
+  shoppingCartTotal.innerHTML = `<p class="my-0 py-3">Total: £0.00</p>`;
+
+  selectedBooks = [];
+
+  const allSelectedCards = document.querySelectorAll(".in-cart");
+  allSelectedCards.forEach((e) => {
+    e.classList.remove("in-cart");
+
+    const addToCartButton = e.querySelector(".btn-addtocart");
+    addToCartButton.innerHTML = `
+    <i class="fas fa-cart-plus mr-2"></i>Add to Cart`;
+  });
 }
 
 function addToShoppingCartList(target) {
@@ -130,7 +160,6 @@ function addToCart(event) {
     addToCartButton.innerHTML = `
       <i class="fas fa-trash mr-2"></i>Remove`;
     selectedBooks.push(target.querySelector(".book-title").innerText);
-    console.log(selectedBooks);
   } else {
     addToCartButton.innerHTML = `
       <i class="fas fa-cart-plus mr-2"></i>Add to Cart`;
@@ -166,9 +195,11 @@ function updateSelectedItems() {}
 
 function viewSkippedBooks() {
   const modalBody = document.querySelector(".modal-body");
+  modalBody.innerHTML = "";
   skippedBooks.forEach((e) => {
     modalBody.innerHTML += e.innerHTML;
   });
+
   hideExcessElements();
 }
 
@@ -180,8 +211,6 @@ function filterBooks(searchInput) {
       return false;
     }
   });
-  console.log("working");
-
   populateStore(filteredBooksArray);
 }
 

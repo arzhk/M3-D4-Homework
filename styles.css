@@ -164,6 +164,25 @@ body {
   color: #181818;
 }
 
+.btn-clear-cart {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  border: none;
+  background-color: #1b1b1b;
+  color: #fff;
+  border-radius: 8px;
+  padding: 6px 12px;
+  outline: none;
+  transition: background-color 0.25s ease, transform 0.25s ease;
+}
+
+.btn-clear-cart:hover {
+  background-color: #3a3a3a;
+  transform: scale(1.05);
+  outline: none;
+}
+
 .in-cart {
   background-color: #00ff8450;
   border: 1px solid #17c06e;
