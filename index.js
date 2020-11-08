@@ -14,7 +14,6 @@ async function getData() {
   ).then(async (response) => {
     let data = await response.json();
     bookDB.push(data);
-    console.log("Data loaded");
   });
   populateStore(bookDB);
 }
@@ -32,7 +31,6 @@ function createStoreCard(book) {
   skippedBookTitles.forEach((e) => {
     if (e === book.title) {
       isSkipped = true;
-      console.log(book.title + " is on the skipped list");
     }
   });
 
@@ -97,12 +95,15 @@ function updateTotalCartPrice() {
     shoppingCartPrices.push(parseFloat(e.innerText));
   });
 
-  if (shoppingCartPrices.length > 1) {
+  if (shoppingCartPrices.length >= 1) {
     shoppingCartPrices = shoppingCartPrices.reduce((a, e) => a + e);
     shoppingCartTotal.innerHTML = `Total: <p class="total-price my-0 py-3 d-inline-block">${shoppingCartPrices.toFixed(
       2
     )}</p>`;
+  } else {
+    shoppingCartTotal.innerHTML = `Total: <p class="total-price my-0 py-3 d-inline-block">0.00</p>`;
   }
+  console.log(shoppingCartPrices);
 }
 
 function emptyCart() {
@@ -145,9 +146,10 @@ function removeFromShoppingCartList(target) {
   const shoppingCartItem_Title = target.querySelector("h4").innerText;
   shoppingCartItems.forEach((e) => {
     if (e.innerText === shoppingCartItem_Title) {
-      e.parentNode.remove();
+      e.parentNode.parentNode.remove();
     }
   });
+  updateTotalCartPrice();
 }
 
 function addToCart(event) {
